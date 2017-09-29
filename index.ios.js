@@ -1,22 +1,13 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-import Login from './src/components/login/login';
+import { AppRegistry, StyleSheet } from 'react-native';
+import {Tabs} from './src/config/router';
+
+
 
 export default class BBDeliver extends Component {
   render() {
     return (
-      <Login />
+      <Tabs />
     );
   }
 }
@@ -26,5 +17,6 @@ const styles = StyleSheet.create({
     flex: 1,
   }
 });
+
 
 AppRegistry.registerComponent('BBDeliver', () => BBDeliver);

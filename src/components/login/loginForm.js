@@ -9,7 +9,12 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-export default class Login extends Component {
+
+export default class LoginForm extends Component {
+  // constructor(props) {
+  //   super(props)
+  // }
+
   render() {
     return (
       <View style={styles.container}>
@@ -26,7 +31,7 @@ export default class Login extends Component {
           autoCapitalize="none"
           autoCorrect={false}
         />
-        <TouchableOpacity style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('Home')}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
       </View>
