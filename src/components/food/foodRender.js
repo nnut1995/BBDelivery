@@ -5,17 +5,13 @@ import {
   Text,
   View,
 } from 'react-native';
+import Food from './allFood'
 
-export default class Home extends Component {
+export default class foodRender extends Component {
   render() {
-    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text>Hi</Text>
-        <Button
-        title="Go to Setup Tab"
-        onPress={() => navigate('Home')}
-      />
+        <Food />
       </View>
     );
   }

@@ -8,6 +8,14 @@ import {
   Button,
   TouchableOpacity
 } from 'react-native';
+import { NavigationActions } from 'react-navigation'
+
+const resetAction = NavigationActions.reset({
+  index: 0,
+  actions: [
+    NavigationActions.navigate({ routeName: 'TabRender'})
+  ]
+})
 
 
 export default class LoginForm extends Component {
@@ -31,7 +39,7 @@ export default class LoginForm extends Component {
           autoCapitalize="none"
           autoCorrect={false}
         />
-        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('Home')}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.dispatch(resetAction)}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
       </View>

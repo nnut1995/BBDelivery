@@ -5,18 +5,12 @@ import {
   Text,
   View,
 } from 'react-native';
-import Tabs from '../../config/tabRouter'
 
-export default class Food extends Component {
+export default class Home extends Component {
   render() {
-    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <Text>Hi</Text>
-        <Button
-        title="Go to Setup Tab"
-        onPress={() => navigate('Setup')}
-      />
       </View>
     );
   }

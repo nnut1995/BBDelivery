@@ -9,10 +9,9 @@ import Tabs from '../../config/tabRouter'
 
 export default class Profile extends Component {
   render() {
-    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text>Hi</Text>
+        <Text>Profile</Text>
       </View>
     );
   }
