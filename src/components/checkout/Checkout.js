@@ -4,10 +4,10 @@ import CheckoutTable from './CheckoutTable';
 
 // [item, item, item]
 
-export default function Cart() {
+export default function Cart(props) {
     return (
         <View style={{flex: 1}}>
-            <CheckoutTable/>
+            <CheckoutTable data={props.data}/>
         </View>
     )
 }

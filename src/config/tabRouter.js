@@ -1,67 +1,77 @@
-import React, { PureComponent } from 'react';
-import { View, StyleSheet,ScrollView } from 'react-native';
-import { TabViewAnimated, TabBar, SceneMap, TabViewPagerScroll } from 'react-native-tab-view';
+import React, {PureComponent} from 'react';
+import {View, StyleSheet, ScrollView} from 'react-native';
+import {TabViewAnimated, TabBar, SceneMap, TabViewPagerScroll} from 'react-native-tab-view';
 // import { width, height, totalSize } from 'react-native-dimension';
 import Drink from '../components/home/drink'
 import Food from '../components/food/foodRender'
 import Checkout from '../components/checkout/Checkout'
 import Profile from '../components/home/profile'
 
-const FirstRoute = () => <Drink />;
-const SecondRoute = () => <Food />;
-const ThirdRoute = () => <Checkout />;
-const FourthRoute = () => <Profile />;
+
+// const FirstRoute = () => <Drink />;
+// const SecondRoute = () => <Food />;
+// const ThirdRoute = () => <Checkout />;
+// const FourthRoute = () => <Profile />;
+const image1 = require('../images/orange.jpg');
+const image2 = require('../images/tomato.jpg');
+const image3 = require('../images/salmon.jpg');
+const image4 = require('../images/greens.jpg');
+const image5 = require('../images/rye-bread.jpg');
+
 
 
 export default class TabViewExample extends PureComponent {
-  state = {
-    index: 0,
-    routes: [
-      { key: '1', title: 'Drink' },
-      { key: '2', title: 'Food' },
-      { key: '3', title: 'Checkout' },
-      { key: '4', title: 'Profile' },
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [{
+                id: 1,
+                image: image1,
+                name: 'Orange',
+                price: 10,
+                amountTaken: 1,
+            }]
+        };
+    }
 
-    ],
-  };
+    state = {
+        index: 0,
+        routes: [
+            {key: '1', title: 'Drink'},
+            {key: '2', title: 'Food'},
+            {key: '3', title: 'Checkout'},
+            {key: '4', title: 'Profile'},
 
-  _handleIndexChange = index => this.setState({ index });
+        ],
+    };
 
-  // _renderPager = (props) => {
-  //  return (Platform.OS === 'ios') ? <TabViewPagerScroll {...props} /> : <TabViewPagerPan {...props} />
-  // }
+    _handleIndexChange = index => this.setState({index});
 
-  _renderHeader = props => <TabBar {...props} />;
+    _renderHeader = props => <TabBar {...props} />;
 
-//   _initialLayout = {
-//   height: 10,
-//   width: Dimensions.get('window').width,
-// };
+    _renderScene = SceneMap({
+        '1': () => <Drink />,
+        '2': () => <Food />,
+        '3': () => <Checkout data={this.state.data}/>,
+        '4': () => <Profile />,
+    });
 
-  _renderScene = SceneMap({
-    '1': FirstRoute,
-    '2': SecondRoute,
-    '3': ThirdRoute,
-    '4': FourthRoute,
-  });
-
-  render() {
-    return (
-      <TabViewAnimated
-        style={styles.container}
-        navigationState={this.state}
-        renderScene={this._renderScene}
-        renderHeader={this._renderHeader}
-        onIndexChange={this._handleIndexChange}
-        initialLayout={this._initialLayout}
-        // renderPager={this._renderPager}
-      />
-    );
-  }
+    render() {
+        return (
+            <TabViewAnimated
+                style={styles.container}
+                navigationState={this.state}
+                renderScene={this._renderScene}
+                renderHeader={this._renderHeader}
+                onIndexChange={this._handleIndexChange}
+                initialLayout={this._initialLayout}
+            />
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+    container: {
+        flex: 1,
+    },
 });

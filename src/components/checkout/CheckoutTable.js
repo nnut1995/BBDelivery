@@ -10,35 +10,6 @@ const image3 = require('../../images/salmon.jpg');
 const image4 = require('../../images/greens.jpg');
 const image5 = require('../../images/rye-bread.jpg');
 
-// const data = [
-// {
-//   id: 1,
-//   image: image1,
-//   name: 'Orange',
-//   price: 10,
-//   amountTaken: 3
-// }, {
-//   id: 2,
-//   image: image2,
-//   name: 'Tomato',
-//   price: 5,
-//   amountTaken: 4
-// }, {
-//   id: 3,
-//   image: image3,
-//   name: 'Salmon fillet',
-//   price: 16,
-//   amountTaken: 2
-// }, {
-//   id: 4,
-//   image: image4,
-//   name: 'Greens',
-//   price: 3,
-//   amountTaken: 3
-// }
-// ];
-
-
 function CartItemInfo({item}) {
     const {imageStyle, textStyle, priceStyle} = styles
     console.log(item)
@@ -55,6 +26,11 @@ function CartItemInfo({item}) {
     )
 }
 
+
+// export function AppendToCart() {
+//     CheckoutTable.constructor.state.data.push("hii")
+//     console.log(this.state.data)
+// }
 
 function AmountChangeButton({iconName, onPress}) {
     return (<Icon.Button
@@ -96,33 +72,7 @@ export default class CheckoutTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [
-                {
-                    id: 1,
-                    image: image1,
-                    name: 'Orange',
-                    price: 10,
-                    amountTaken: 3
-                }, {
-                    id: 2,
-                    image: image2,
-                    name: 'Tomato',
-                    price: 5,
-                    amountTaken: 4
-                }, {
-                    id: 3,
-                    image: image3,
-                    name: 'Salmon fillet',
-                    price: 16,
-                    amountTaken: 2
-                }, {
-                    id: 4,
-                    image: image4,
-                    name: 'Greens',
-                    price: 3,
-                    amountTaken: 3
-                }
-            ]
+            data: props.data
         };
     }
 
