@@ -2,27 +2,50 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import TotalComp from './TotalComponent';
 
-const Footer = () => {
-  const {
-    containerStyle,
-    buttonContainerStyle,
-    closeButtonStyle,
-    checkoutButtonStyle } = styles;
-  return (
-    <View style={containerStyle}>
-      <TotalComp />
-      <View style={buttonContainerStyle}>
-        <View style={closeButtonStyle}>
-          <Text style={{ color: '#fff' }}>Close</Text>
-        </View>
+export default function Footer({totalForFooter}) {
+    const {
+        containerStyle,
+        buttonContainerStyle,
+        closeButtonStyle,
+        checkoutButtonStyle } = styles;
+    return (
+        <View style={containerStyle}>
+          <TotalComp totalForFooter={totalForFooter}/>
+          <View style={buttonContainerStyle}>
+            <View style={closeButtonStyle}>
+              <Text style={{ color: '#fff' }}>Close</Text>
+            </View>
 
-        <View style={checkoutButtonStyle}>
-          <Text style={{ color: '#fff' }}>Go to checkout</Text>
+            <View style={checkoutButtonStyle}>
+              <Text style={{ color: '#fff' }}>Go to checkout</Text>
+            </View>
+          </View>
         </View>
-      </View>
-    </View>
-  );
-};
+    )
+}
+
+
+// const Footer = (totalAmount) => {
+//   const {
+//     containerStyle,
+//     buttonContainerStyle,
+//     closeButtonStyle,
+//     checkoutButtonStyle } = styles;
+//   return (
+//     <View style={containerStyle}>
+//       <TotalComp totalAmount={totalAmount}/>
+//       <View style={buttonContainerStyle}>
+//         <View style={closeButtonStyle}>
+//           <Text style={{ color: '#fff' }}>Close</Text>
+//         </View>
+//
+//         <View style={checkoutButtonStyle}>
+//           <Text style={{ color: '#fff' }}>Go to checkout</Text>
+//         </View>
+//       </View>
+//     </View>
+//   );
+// };
 
 const styles = {
   containerStyle: {
@@ -53,5 +76,3 @@ const styles = {
     borderRadius: 3,
   }
 };
-
-export default Footer;

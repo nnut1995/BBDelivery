@@ -53,7 +53,7 @@ function CartItem({item, handleChildClick, _Preview}) {
 }
 
 
-export default class allFood extends Component {
+export default class allDrink extends Component {
     constructor(props) {
         super(props)
         this.state = {

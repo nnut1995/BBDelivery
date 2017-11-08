@@ -5,12 +5,12 @@ import {
     Text,
     View,
 } from 'react-native';
-import Food from './allFood'
+import Drink from './allDrink'
 
-export default function foodRender({handleChildClick}) {
+export default function drinkRender({handleChildClick}) {
     return (
         <View style={styles.container}>
-            <Food handleChildClick={handleChildClick}/>
+          <Drink handleChildClick={handleChildClick}/>
         </View>
     )
 }

@@ -2,12 +2,10 @@ import React, {Component} from 'react';
 import {View} from 'react-native';
 import CheckoutTable from './CheckoutTable';
 
-// [item, item, item]
-
-export default function Cart(props) {
+export default function Checkout({data, onChangeAmount, totalForFooter}) {
     return (
         <View style={{flex: 1}}>
-            <CheckoutTable data={props.data}/>
+            <CheckoutTable data={data} onChangeAmount={onChangeAmount} totalForFooter={totalForFooter}/>
         </View>
     )
 }

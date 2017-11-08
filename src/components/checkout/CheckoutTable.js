@@ -3,19 +3,12 @@ import {Text, View, FlatList, Image, RefreshControl} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Footer from '../checkout/Footer';
 
-
-const image1 = require('../../images/orange.jpg');
-const image2 = require('../../images/tomato.jpg');
-const image3 = require('../../images/salmon.jpg');
-const image4 = require('../../images/greens.jpg');
-const image5 = require('../../images/rye-bread.jpg');
-
 function CartItemInfo({item}) {
     const {imageStyle, textStyle, priceStyle} = styles
-    console.log(item)
+    // console.log(item)
     return (
         <View>
-            <Image source={item.image} style={imageStyle}/>
+            <Image source={{uri: item.image}} style={imageStyle}/>
             <View style={textStyle}>
                 <Text style={{color: '#2e2f30'}}>{item.name}</Text>
                 <View style={priceStyle}>
@@ -25,12 +18,6 @@ function CartItemInfo({item}) {
         </View>
     )
 }
-
-
-// export function AppendToCart() {
-//     CheckoutTable.constructor.state.data.push("hii")
-//     console.log(this.state.data)
-// }
 
 function AmountChangeButton({iconName, onPress}) {
     return (<Icon.Button
@@ -67,39 +54,26 @@ function CartItem({item, onIncrease, onDecrease}) {
     )
 }
 
-
 export default class CheckoutTable extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: props.data
-        };
-    }
-
-    onChangeAmount(index, amountChange) {
-        this.setState((st) => {
-            const newData = [...st.data]
-            var newAmount = st.data[index].amountTaken + amountChange
-            newAmount = newAmount < 0 ? 0 : newAmount
-            newData[index] = {...st.data[index], amountTaken: newAmount}
-            return {data: newData}
-        })
+    constructor(props){
+        super(props)
     }
 
     render() {
+        const renderFooter = <Footer totalForFooter={this.props.totalForFooter} />
         return (
             <View>
                 <FlatList
-                    data={this.state.data}
+                    data={this.props.data}
                     renderItem={({item, index}) => (
                         <CartItem
                             item={item}
-                            onIncrease={() => this.onChangeAmount(index, +1)}
-                            onDecrease={() => this.onChangeAmount(index, -1)}
+                            onIncrease={() => this.props.onChangeAmount(index, +1)}
+                            onDecrease={() => this.props.onChangeAmount(index, -1)}
                         />
                     )}
                     keyExtractor={(item) => item.id}
-                    ListFooterComponent={Footer}
+                    ListFooterComponent={renderFooter}
                 />
             </View>
         );
