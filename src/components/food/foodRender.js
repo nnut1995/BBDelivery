@@ -6,11 +6,23 @@ import {
     View,
 } from 'react-native';
 import Food from './allFood'
+import * as constants from '../../globalVar';
+import Axios from 'axios';
+
+
+async function getallFood() {
+    try {
+        var response = await Axios.get(constants.HTTP_URL +'/getfood')
+        return response
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 export default function foodRender({handleChildClick}) {
     return (
         <View style={styles.container}>
-            <Food handleChildClick={handleChildClick}/>
+            <Food handleChildClick={handleChildClick} getItem={getallFood}/>
         </View>
     )
 }

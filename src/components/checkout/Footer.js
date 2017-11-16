@@ -1,78 +1,71 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import {View, Text, TouchableOpacity, TextInput} from 'react-native';
 import TotalComp from './TotalComponent';
 
-export default function Footer({totalForFooter}) {
+export default function Footer({totalForFooter,_purchase, _orderInput, clearCart}) {
     const {
         containerStyle,
         buttonContainerStyle,
         closeButtonStyle,
-        checkoutButtonStyle } = styles;
+        checkoutButtonStyle
+    } = styles;
+
     return (
         <View style={containerStyle}>
-          <TotalComp totalForFooter={totalForFooter}/>
-          <View style={buttonContainerStyle}>
-            <View style={closeButtonStyle}>
-              <Text style={{ color: '#fff' }}>Close</Text>
+            <TotalComp totalForFooter={totalForFooter}/>
+            <TextInput
+                style={styles.input}
+                placeholder="Special Request"
+                keyboardType="numeric"
+                multiline={true}
+                onChangeText={(specialOrder) => _orderInput(specialOrder)}
+            />
+            <View style={buttonContainerStyle}>
+                <TouchableOpacity onPress={() => clearCart()}>
+                    <View style={styles.button}>
+                        <Text>Clear Cart</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => _purchase()}>
+                    <View style={styles.button}>
+                        <Text>Check out</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
-
-            <View style={checkoutButtonStyle}>
-              <Text style={{ color: '#fff' }}>Go to checkout</Text>
-            </View>
-          </View>
         </View>
     )
 }
 
-
-// const Footer = (totalAmount) => {
-//   const {
-//     containerStyle,
-//     buttonContainerStyle,
-//     closeButtonStyle,
-//     checkoutButtonStyle } = styles;
-//   return (
-//     <View style={containerStyle}>
-//       <TotalComp totalAmount={totalAmount}/>
-//       <View style={buttonContainerStyle}>
-//         <View style={closeButtonStyle}>
-//           <Text style={{ color: '#fff' }}>Close</Text>
-//         </View>
-//
-//         <View style={checkoutButtonStyle}>
-//           <Text style={{ color: '#fff' }}>Go to checkout</Text>
-//         </View>
-//       </View>
-//     </View>
-//   );
-// };
-
 const styles = {
-  containerStyle: {
-    flex: 1,
-    paddingRight: 15,
-    paddingLeft: 15,
-    paddingBottom: 15,
-    borderTopWidth: 1,
-    borderColor: '#e2e2e2',
-  },
-  buttonContainerStyle: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingTop: 15,
-  },
-  closeButtonStyle: {
-    backgroundColor: '#7f8c8d',
-    padding: 10,
-    paddingRight: 30,
-    paddingLeft: 30,
-    borderRadius: 3,
-  },
-  checkoutButtonStyle: {
-    backgroundColor: '#f39c12',
-    padding: 10,
-    paddingRight: 60,
-    paddingLeft: 60,
-    borderRadius: 3,
-  }
+    containerStyle: {
+        flex: 1,
+        paddingRight: 15,
+        paddingLeft: 15,
+        paddingBottom: 15,
+        borderTopWidth: 1,
+        borderColor: '#e2e2e2',
+    },
+    buttonContainerStyle: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        paddingTop: 5,
+    },
+    button: {
+        backgroundColor: 'lightblue',
+        padding: 15,
+        margin: 20,
+        borderRadius: 4,
+        borderColor: 'rgba(0, 0, 0, 0.1)',
+    },
+    input: {
+        height: 60,
+        width: 340,
+        backgroundColor: 'white',
+        marginTop: 10,
+        color: 'black',
+        paddingHorizontal: 10,
+        paddingTop: 10,
+        borderRadius: 5
+
+    }
 };

@@ -6,9 +6,14 @@ import {
     View,
     TextInput,
     Button,
-    TouchableOpacity
+    TouchableOpacity,
+    AsyncStorage
 } from 'react-native';
 import {NavigationActions} from 'react-navigation'
+import Axios from 'axios';
+import * as constants from '../../globalVar';
+
+
 
 const resetAction = NavigationActions.reset({
     index: 0,
@@ -20,21 +25,14 @@ const resetAction = NavigationActions.reset({
 async function Login(username, password, navigation) {
     console.log("login")
     try {
-        let response = await fetch('http://localhost:3000/login', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                'Username': username,
-                'Password': password,
-            })
+        let responseJson = await Axios.post(constants.HTTP_URL + '/login', {
+            'Username': username,
+            'Password': password,
         })
-        let responseJson = await response.json();
         console.log(responseJson)
         if (responseJson !== false){
             navigation.dispatch(resetAction)
+            await AsyncStorage.setItem('myState', username);
         }
         else{
             console.log("Wrong Password")

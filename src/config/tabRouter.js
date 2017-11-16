@@ -4,14 +4,7 @@ import {TabViewAnimated, TabBar, SceneMap, TabViewPagerScroll} from 'react-nativ
 import Drink from '../components/drink/drinkRender'
 import Food from '../components/food/foodRender'
 import Checkout from '../components/checkout/Checkout'
-import Profile from '../components/home/profile'
-
-
-const image1 = require('../images/orange.jpg');
-const image2 = require('../images/tomato.jpg');
-const image3 = require('../images/salmon.jpg');
-const image4 = require('../images/greens.jpg');
-const image5 = require('../images/rye-bread.jpg');
+import Profile from '../components/profile/profilePage'
 
 
 export default class tabRouter extends PureComponent {
@@ -52,6 +45,11 @@ export default class tabRouter extends PureComponent {
         return status
     }
 
+    async clearCart() {
+        await this.setState({data: []})
+        this.handleTotalAmount()
+    }
+
     async handleChildClick(childData, visible) {
         if (!this.checkSimilar(childData)) {
             await this.setState((oldst, myFunction) => {
@@ -88,8 +86,8 @@ export default class tabRouter extends PureComponent {
             '1': <Drink handleChildClick={this.handleChildClick.bind(this)}/>,
             '2': <Food handleChildClick={this.handleChildClick.bind(this)}/>,
             '3': <Checkout data={this.state.data} onChangeAmount={this.onChangeAmount.bind(this)}
-                           totalForFooter={this.state.totalForFooter}/>,
-            '4': <Profile/>,
+                           totalForFooter={this.state.totalForFooter} clearCart={this.clearCart.bind(this)}/>,
+            '4': <Profile />,
         };
         return scenes[route.key];
     };

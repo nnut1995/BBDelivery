@@ -3,25 +3,17 @@ import {Text, View, FlatList, Image, RefreshControl} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Axios from 'axios';
 import Preview from './preview'
-
-async function getallFood() {
-    try {
-        var response = await Axios.get('http://localhost:3000/getfood')
-        return response
-    } catch (error) {
-        console.error(error);
-    }
-}
+import * as constants from '../../globalVar';
 
 function CartItemInfo({item}) {
     const {imageStyle, textStyle, priceStyle} = styles
     return (
-        <View>
+        <View style={{width: 100}}>
             <Image source={{uri: item.image}} style={imageStyle}/>
             <View style={textStyle}>
-                <Text style={{color: '#2e2f30'}}>{item.name}</Text>
+                <Text numberOfLines={1} style={{color: '#2e2f30'}}>{item.name}</Text>
                 <View style={priceStyle}>
-                    <Text style={{color: '#2e2f30', fontSize: 12}}>${item.price}</Text>
+                    <Text style={{color: '#2e2f30', fontSize: 12}}>฿ {item.price}</Text>
                 </View>
             </View>
         </View>
@@ -71,7 +63,7 @@ export default class allFood extends Component {
     }
 
     async componentDidMount() {
-        const Food = await getallFood();
+        const Food = await this.props.getItem();
         var allFood = (Food.data)
         this.setState(() => {
             return {checkoutData: allFood}

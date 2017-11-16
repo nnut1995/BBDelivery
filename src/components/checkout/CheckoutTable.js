@@ -1,18 +1,20 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList, Image, RefreshControl} from 'react-native';
+import {Text, View, FlatList, Image, RefreshControl, AsyncStorage, Alert} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Footer from '../checkout/Footer';
+import Axios from 'axios';
+import * as constants from '../../globalVar';
+
 
 function CartItemInfo({item}) {
     const {imageStyle, textStyle, priceStyle} = styles
-    // console.log(item)
     return (
-        <View>
+        <View style={{width: 100}}>
             <Image source={{uri: item.image}} style={imageStyle}/>
             <View style={textStyle}>
-                <Text style={{color: '#2e2f30'}}>{item.name}</Text>
+                <Text numberOfLines={1} style={{color: '#2e2f30'}}>{item.name}</Text>
                 <View style={priceStyle}>
-                    <Text style={{color: '#2e2f30', fontSize: 12}}>${item.price}</Text>
+                    <Text style={{color: '#2e2f30', fontSize: 12}}>฿ {item.price}</Text>
                 </View>
             </View>
         </View>
@@ -54,13 +56,35 @@ function CartItem({item, onIncrease, onDecrease}) {
     )
 }
 
+
 export default class CheckoutTable extends Component {
     constructor(props){
         super(props)
+        this.state = {specialOrder: ''}
+    }
+
+    _purchase = async () => {
+        const myState = await AsyncStorage.getItem('myState');
+        console.log(this.state.specialOrder, "specialOrder")
+        let responseJson = await Axios.post(constants.HTTP_URL + '/checkout', {
+            'MyState': myState,
+            'Order': this.props.data,
+            'specialOrder': this.state.specialOrder
+        })
+        if (responseJson.data == true) {
+            this.props.clearCart()
+            Alert.alert("Order Sent")
+        }
+    }
+
+    _orderInput = (specialOrder) => {
+        console.log('_orderInput')
+        this.setState({specialOrder})
     }
 
     render() {
-        const renderFooter = <Footer totalForFooter={this.props.totalForFooter} />
+        const renderFooter = <Footer totalForFooter={this.props.totalForFooter} _purchase={this._purchase}
+                                     _orderInput={this._orderInput} clearCart={this.props.clearCart}/>
         return (
             <View>
                 <FlatList
@@ -98,8 +122,8 @@ const styles = {
         backgroundColor: '#fff'
     },
     imageStyle: {
-        width: 50,
-        height: 50,
+        width: 75,
+        height: 75,
         marginRight: 20
     },
     textStyle: {

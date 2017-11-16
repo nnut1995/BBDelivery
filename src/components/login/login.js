@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  KeyboardAvoidingView
-} from 'react-native';
+import {AppRegistry, StyleSheet, Text, View, Image, KeyboardAvoidingView} from 'react-native';
 import LoginForm from './loginForm';
 
 

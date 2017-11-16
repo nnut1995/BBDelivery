@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Tabs from '../../config/tabRouter'
+import Tabs from './tabRouter'
 
 export default class tabRender extends Component {
   render() {
