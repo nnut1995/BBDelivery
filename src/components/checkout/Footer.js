@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, TextInput} from 'react-native';
+import {View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView} from 'react-native';
 import TotalComp from './TotalComponent';
 
 export default function Footer({totalForFooter,_purchase, _orderInput, clearCart}) {
@@ -11,12 +11,12 @@ export default function Footer({totalForFooter,_purchase, _orderInput, clearCart
     } = styles;
 
     return (
-        <View style={containerStyle}>
+        <KeyboardAvoidingView behavior={'padding' +
+        ''} style={containerStyle}>
             <TotalComp totalForFooter={totalForFooter}/>
             <TextInput
                 style={styles.input}
                 placeholder="Special Request"
-                keyboardType="numeric"
                 multiline={true}
                 onChangeText={(specialOrder) => _orderInput(specialOrder)}
             />
@@ -32,7 +32,7 @@ export default function Footer({totalForFooter,_purchase, _orderInput, clearCart
                     </View>
                 </TouchableOpacity>
             </View>
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 
