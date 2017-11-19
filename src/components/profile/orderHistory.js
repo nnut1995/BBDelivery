@@ -20,7 +20,7 @@ async function getOrder() {
 function toGrid(data) {
     newData = []
     data.forEach(function(element) {
-        newData.push([element.OrderID, ele(element.Order), element.OrderID])
+        newData.push([element.OrderID, orderViewButton(element.Order), element.OrderID])
     });
     return newData
 }
@@ -35,7 +35,7 @@ function BackButton({navigate}) {
     )
 }
 
-function ele(value) {
+function orderViewButton(value) {
     return (
         <TouchableOpacity onPress={() => Alert.alert(value)}>
             <View>

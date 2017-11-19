@@ -4,7 +4,7 @@ import {TabViewAnimated, TabBar, SceneMap, TabViewPagerScroll} from 'react-nativ
 import Drink from '../components/drink/drinkRender'
 import Food from '../components/food/foodRender'
 import Checkout from '../components/checkout/Checkout'
-import Profile from '../components/profile/profilePage'
+import Profile from '../components/profile/profile'
 
 
 export default class tabRouter extends PureComponent {
@@ -15,7 +15,7 @@ export default class tabRouter extends PureComponent {
             routes: [
                 {key: '1', title: 'Drink'},
                 {key: '2', title: 'Food'},
-                {key: '3', title: 'Checkout'},
+                {key: '3', title: 'Cart'},
                 {key: '4', title: 'Profile'},
             ],
             data: [],
@@ -87,12 +87,13 @@ export default class tabRouter extends PureComponent {
             '2': <Food handleChildClick={this.handleChildClick.bind(this)}/>,
             '3': <Checkout data={this.state.data} onChangeAmount={this.onChangeAmount.bind(this)}
                            totalForFooter={this.state.totalForFooter} clearCart={this.clearCart.bind(this)}/>,
-            '4': <Profile />,
+            '4': <Profile navigation={this.props.navigation}/>,
         };
         return scenes[route.key];
     };
 
     render() {
+        console.log(this.props, "MYPROP")
         return (
             <TabViewAnimated
                 style={styles.container}

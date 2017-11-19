@@ -2,16 +2,6 @@ import React, {Component} from 'react';
 import {Text, TouchableOpacity, View, StyleSheet, Image} from 'react-native';
 import Modal from 'react-native-modal';
 
-const checkoutData = [
-    {
-        id: 1,
-        image: 'https://storage.googleapis.com/seniorproject-server.appspot.com/food/Food1.png',
-        name: 'BB Fried Rice',
-        price: 100,
-        amountTaken: 1,
-    }
-]
-
 
 export default class Preview extends Component {
 

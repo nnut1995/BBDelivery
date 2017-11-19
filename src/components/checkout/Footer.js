@@ -11,8 +11,7 @@ export default function Footer({totalForFooter,_purchase, _orderInput, clearCart
     } = styles;
 
     return (
-        <KeyboardAvoidingView behavior={'padding' +
-        ''} style={containerStyle}>
+        <View style={containerStyle}>
             <TotalComp totalForFooter={totalForFooter}/>
             <TextInput
                 style={styles.input}
@@ -32,7 +31,7 @@ export default function Footer({totalForFooter,_purchase, _orderInput, clearCart
                     </View>
                 </TouchableOpacity>
             </View>
-        </KeyboardAvoidingView>
+        </View>
     )
 }
 

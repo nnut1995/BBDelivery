@@ -3,71 +3,60 @@ import {AppRegistry, StyleSheet, Text, View, TouchableOpacity, Alert, AsyncStora
 import {Table, TableWrapper, Row, Rows, Col, Cols, Cell} from 'react-native-table-component';
 import Axios from 'axios';
 import * as constants from '../../globalVar';
-
-async function getOrder() {
-    try {
-        const myState = await AsyncStorage.getItem('myState');
-        let responseJson = await Axios.post(constants.HTTP_URL + '/getCurrentOrder', {
-            'state': myState,
-        })
-        console.log(toGrid(responseJson.data))
-        return toGrid(responseJson.data)
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-function toGrid(data) {
-    newData = []
-    data.forEach(function(element) {
-        newData.push([element.OrderID, ele(element.Order), element.OrderID, element.FoodStatus])
-    });
-    return newData
-}
-
-function BackButton({navigate}) {
-    return (
-        <TouchableOpacity onPress={() => navigate('Main')}>
-            <View style={styles.button}>
-                <Text>Back</Text>
-            </View>
-        </TouchableOpacity>
-    )
-}
-
-function ele(value) {
-    return (
-        <TouchableOpacity onPress={() => Alert.alert(value)}>
-            <View>
-                <Text style={styles.btnText}>View Order</Text>
-            </View>
-        </TouchableOpacity>
-    )
-}
+import OrderDetail from './orderDetail'
 
 export default class CurrentOrder extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            Order: []
+            Order: [],
         }
     }
 
+    async getOrder() {
+        try {
+            const myState = await AsyncStorage.getItem('myState');
+            let responseJson = await Axios.post(constants.HTTP_URL + '/getCurrentOrder', {
+                'state': myState,
+            })
+            return this.toGrid(responseJson.data)
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    toGrid(data) {
+        newData = []
+        data.forEach(function (element) {
+            newData.push([element.OrderID, this.orderViewButton(element.Order), element.OrderID, element.FoodStatus])
+        });
+        return newData
+    }
+
+    doModal(value) {
+        this.props.navigation.navigate('OrderDetail' ,{myOrder: value})
+    }
+
     async componentDidMount() {
-        const Order = await getOrder();
+        const Order = await this.getOrder();
         this.setState({Order: Order})
     }
 
-
     render() {
         const {navigate} = this.props.navigation;
+        orderViewButton = (value) => (
+            <TouchableOpacity onPress={() => this.doModal(value)}>
+                <View>
+                    <Text style={styles.btnText}>View Order</Text>
+                </View>
+            </TouchableOpacity>
+        )
         const tableHead = ['Order', 'OrderDetail', 'Date', 'Status'];
         return (
             <ScrollView style={styles.container}>
                 <Table>
                     <Row data={tableHead} style={styles.head} textStyle={styles.text}/>
                     <Rows data={this.state.Order} style={styles.row} textStyle={styles.text}/>
-                    <BackButton navigate={navigate}/>
                 </Table>
             </ScrollView>
         );

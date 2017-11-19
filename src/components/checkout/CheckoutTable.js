@@ -71,6 +71,7 @@ export default class CheckoutTable extends Component {
             'Order': this.props.data,
             'specialOrder': this.state.specialOrder
         })
+        console.log(this.props.data)
         if (responseJson.data == true) {
             this.props.clearCart()
             Alert.alert("Order Sent")
@@ -78,7 +79,6 @@ export default class CheckoutTable extends Component {
     }
 
     _orderInput = (specialOrder) => {
-        console.log('_orderInput')
         this.setState({specialOrder})
     }
 

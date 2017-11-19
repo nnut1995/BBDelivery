@@ -3,6 +3,6 @@ import Tabs from './tabRouter'
 
 export default class tabRender extends Component {
   render() {
-    return <Tabs />;
+    return <Tabs navigation={this.props.navigation} />;
   }
 }
