@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
+import {View, StyleSheet, ScrollView, Alert} from 'react-native';
 import {TabViewAnimated, TabBar, SceneMap, TabViewPagerScroll} from 'react-native-tab-view';
 import Drink from '../components/drink/drinkRender'
 import Food from '../components/food/foodRender'
@@ -16,7 +16,7 @@ export default class tabRouter extends PureComponent {
                 {key: '1', title: 'Drink'},
                 {key: '2', title: 'Food'},
                 {key: '3', title: 'Cart'},
-                {key: '4', title: 'Profile'},
+                {key: '4', title: 'Order'},
             ],
             data: [],
             totalForFooter: [0, 0],
@@ -63,6 +63,8 @@ export default class tabRouter extends PureComponent {
             }).indexOf(childData.id);
             this.onChangeAmount(index,+1)
         }
+        Alert.alert("The item is added")
+        console.log("handleChildClick")
     }
 
     handleTotalAmount() {

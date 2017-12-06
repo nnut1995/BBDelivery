@@ -10,12 +10,20 @@ import OrderDetail from '../components/profile/orderDetail'
 export const Tabs = StackNavigator({
     Login: {
         screen: Login,
+        NavigationOptions: { title: 'REGISTRATION',
+            headerTitleStyle :{textAlign: 'center',alignSelf:'center'},
+            headerStyle:{backgroundColor:'white'}
+        }
     },
     TabRender: {
         path: 'TabRender',
         screen: TabRender,
+        NavigationOptions: { title: 'REGISTRATION',
+            headerTitleStyle :{textAlign: 'center',alignSelf:'center'},
+            headerStyle:{backgroundColor:'white'}
+        }
     },
     CurrentOrder: {screen: CurrentOrder},
     OrderHistory: {screen: OrderHistory},
-    OrderDetail: {screen: OrderDetail}
+    OrderDetail: {screen: OrderDetail},
 })

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View, TouchableOpacity, AsyncStorage, Alert} from 'react-native';
+import {NavigationActions} from 'react-navigation'
 
 
 function MyButton({name,func}) {
@@ -12,11 +13,18 @@ function MyButton({name,func}) {
     )
 }
 
-async function logOut(navigate) {
+
+resetAction = NavigationActions.reset({
+    index: 0,
+    actions: [
+        NavigationActions.navigate({routeName: 'Login'})
+    ]
+})
+
+async function logOut(navigation,) {
     await AsyncStorage.setItem('myState', '');
     Alert.alert("Log out")
-    navigate('Login')
-}
+    navigation.dispatch(resetAction)}
 
 
 export default class Profile extends Component {
@@ -26,7 +34,7 @@ export default class Profile extends Component {
             <View style={styles.container}>
                 <MyButton name={'Tracking Order'} func={() => navigation.navigate('CurrentOrder')}/>
                 <MyButton name={'Order History'} func={() => navigation.navigate('OrderHistory')}/>
-                <MyButton name={'Log out'} func={() => logOut(navigation.navigate)}/>
+                <MyButton name={'Log out'} func={() => logOut(navigation, this.resetAction)}/>
 
             </View>
         );

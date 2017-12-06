@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList, Image, RefreshControl, AsyncStorage, Alert} from 'react-native';
+import {Text, View, FlatList, Image, RefreshControl, AsyncStorage, Alert, AlertIOS} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Footer from '../checkout/Footer';
 import Axios from 'axios';
@@ -58,23 +58,38 @@ function CartItem({item, onIncrease, onDecrease}) {
 
 
 export default class CheckoutTable extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {specialOrder: ''}
     }
 
-    _purchase = async () => {
+    _puchaseRequest = async () => {
         const myState = await AsyncStorage.getItem('myState');
-        console.log(this.state.specialOrder, "specialOrder")
         let responseJson = await Axios.post(constants.HTTP_URL + '/checkout', {
             'MyState': myState,
             'Order': this.props.data,
             'specialOrder': this.state.specialOrder
         })
-        console.log(this.props.data)
         if (responseJson.data == true) {
             this.props.clearCart()
             Alert.alert("Order Sent")
+        }
+    }
+
+
+    _purchase = async () => {
+        if (this.props.data.length == 0) {
+            Alert.alert("Your cart is empty")
+        }
+        else {
+            AlertIOS.alert(
+                'Confirmation',
+                'Confirm order?',
+                [
+                    {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: 'Confirm', onPress: () => this._puchaseRequest()},
+                ],
+            );
         }
     }
 
@@ -110,13 +125,6 @@ const styles = {
         flex: 1,
         borderBottomWidth: 1,
         borderColor: '#e2e2e2',
-        padding: 10,
-        paddingLeft: 15,
-        backgroundColor: '#fff'
-    },
-    lastItemStyle: {
-        flexDirection: 'row',
-        flex: 1,
         padding: 10,
         paddingLeft: 15,
         backgroundColor: '#fff'

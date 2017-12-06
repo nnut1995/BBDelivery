@@ -15,7 +15,7 @@ export default function Footer({totalForFooter,_purchase, _orderInput, clearCart
             <TotalComp totalForFooter={totalForFooter}/>
             <TextInput
                 style={styles.input}
-                placeholder="Special Request"
+                placeholder="Place and Remarks"
                 multiline={true}
                 onChangeText={(specialOrder) => _orderInput(specialOrder)}
             />

@@ -13,7 +13,7 @@ export default function TotalComponent({totalForFooter}) {
 
             <View style={totalStyle}>
                 <Text>Total - </Text>
-                <Text>${totalForFooter[1]}</Text>
+                <Text>฿{totalForFooter[1]}</Text>
             </View>
         </View>
     )

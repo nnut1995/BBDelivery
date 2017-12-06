@@ -1,17 +1,9 @@
 import React, {Component} from 'react';
-import {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View,
-    TextInput,
-    Button,
-    TouchableOpacity,
-    AsyncStorage
-} from 'react-native';
+import {AppRegistry, StyleSheet, Text, View, TextInput, Button, TouchableOpacity, AsyncStorage, Alert} from 'react-native';
 import {NavigationActions} from 'react-navigation'
 import Axios from 'axios';
 import * as constants from '../../globalVar';
+// import bcrypt from "react-native-bcrypt";
 
 
 
@@ -23,19 +15,18 @@ const resetAction = NavigationActions.reset({
 })
 
 async function Login(username, password, navigation) {
-    console.log("login")
     try {
         let responseJson = await Axios.post(constants.HTTP_URL + '/login', {
             'Username': username,
             'Password': password,
         })
-        console.log(responseJson)
-        if (responseJson !== false){
+        console.log(responseJson.data)
+        if (responseJson.data.Type == 'student'){
             navigation.dispatch(resetAction)
             await AsyncStorage.setItem('myState', username);
         }
         else{
-            console.log("Wrong Password")
+            Alert.alert("Wrong Password")
         }
     } catch (error) {
         console.error(error);
@@ -45,7 +36,7 @@ async function Login(username, password, navigation) {
 export default class LoginForm extends Component {
     constructor(props) {
         super(props);
-        this.state = {username: '5680477', password: '12345678'};
+        this.state = {username: '', password: ''};
     }
 
     render() {

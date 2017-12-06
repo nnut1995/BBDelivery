@@ -5,11 +5,64 @@ import Axios from 'axios';
 import * as constants from '../../globalVar';
 import OrderDetail from './orderDetail'
 
+// function Button(orderID) {
+//     return (
+//         <TouchableOpacity onPress={() => cancleOrder(orderID)}>
+//             <View>
+//                 <Text style={styles.btnText}>Cancle Order</Text>
+//             </View>
+//         </TouchableOpacity>
+//     )
+// }
+//
+// function Blank() {
+//     return <text>Cancle not Available</text>;
+// }
+
+// async function cancleOrder(orderID) {
+//     try {
+//         let responseJson = await Axios.post(constants.HTTP_URL + '/cancleFood', {
+//             'orderID': orderID,
+//         })
+//         if (responseJson.data == "done") {
+//             Alert.alert("Your order is already cancled")
+//             // navigation.navigate('TabRender')
+//         }
+//         return "success"
+//     } catch (error) {
+//         console.error(error);
+//     }
+// }
+
+
+// function Canceling(status, orderID) {
+//     if (status == 'Pending') {
+//         return <Button orderID={orderID}/>;
+//     }
+//     return <Blank/>;
+// }
+
+
 export default class CurrentOrder extends Component {
     constructor(props) {
         super(props)
         this.state = {
             Order: [],
+        }
+    }
+
+    async cancleOrder(orderID) {
+        try {
+            let responseJson = await Axios.post(constants.HTTP_URL + '/cancleFood', {
+                'orderID': orderID,
+            })
+            if (responseJson.data == "done") {
+                Alert.alert("Your order is already canceled")
+                this.refresh()
+            }
+            return "success"
+        } catch (error) {
+            console.error(error);
         }
     }
 
@@ -28,30 +81,55 @@ export default class CurrentOrder extends Component {
     toGrid(data) {
         newData = []
         data.forEach(function (element) {
-            newData.push([element.OrderID, this.orderViewButton(element.Order), element.OrderID, element.FoodStatus])
+            newData.push([element.OrderID, this.orderViewButton(element.Order), element.OrderID.slice(8),
+                element.FoodStatus, this.cancleButton(element.OrderID, element.FoodStatus)])
         });
         return newData
     }
 
-    doModal(value) {
-        this.props.navigation.navigate('OrderDetail' ,{myOrder: value})
+    navi(value) {
+        this.props.navigation.navigate('OrderDetail', {myOrder: value})
     }
 
-    async componentDidMount() {
+    async refresh() {
         const Order = await this.getOrder();
         this.setState({Order: Order})
     }
 
+    componentDidMount() {
+        this.refresh()
+    }
+
     render() {
-        const {navigate} = this.props.navigation;
+        cancleButton = (orderID, status) => {
+            if (status == 'Pending') {
+                return <CancleButton orderID={orderID} />
+            }
+            else {
+                return <Blank />
+            }
+        }
+
+        CancleButton = (orderID) => (
+            <TouchableOpacity onPress={() => this.cancleOrder(orderID)}>
+                <View>
+                    <Text style={styles.btnText}>Cancel Order</Text>
+                </View>
+            </TouchableOpacity>
+        )
+
+        Blank = () => (
+            <Text style={styles.btnText}> </Text>
+        )
+
         orderViewButton = (value) => (
-            <TouchableOpacity onPress={() => this.doModal(value)}>
+            <TouchableOpacity onPress={() => this.navi(value)}>
                 <View>
                     <Text style={styles.btnText}>View Order</Text>
                 </View>
             </TouchableOpacity>
         )
-        const tableHead = ['Order', 'OrderDetail', 'Date', 'Status'];
+        const tableHead = ['Order', 'OrderDetail', 'Date', 'Status', 'Cancelling'];
         return (
             <ScrollView style={styles.container}>
                 <Table>

@@ -9,6 +9,7 @@
 	"dependencies": {
 		"@google-cloud/storage": "^1.4.0",
 		"axios": "^0.17.0",
+		"bcrypt": "^1.0.3",
 		"file-system": "^2.2.2",
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.48.4",

@@ -38,7 +38,7 @@ function CartItem({item, handleChildClick, _Preview}) {
     return (
         <View style={containerStyle}>
             <CartItemInfo item={item}/>
-            <AddToCartButton item={item} press={_Preview} icon={"ios-search"}/>
+            <AddToCartButton item={item} press={_Preview} icon={"ios-copy"}/>
             <AddToCartButton item={item} press={handleChildClick} icon={"ios-cart"}/>
         </View>
     )

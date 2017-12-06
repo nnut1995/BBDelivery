@@ -24,8 +24,6 @@ export default class OrderDetail extends Component {
     tableData = this.toGrid(this.props.navigation.state.params.myOrder)
 
     render() {
-        // const {state} = this.props.navigation;
-        console.log(this.props.navigation.state.params.myOrder, " My Navigation Prop")
         return (
             <ScrollView style={styles.container}>
                 <Table>
